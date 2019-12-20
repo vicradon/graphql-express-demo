@@ -36,7 +36,7 @@ app.listen(4000, () => {
 ```
 
 ### Step 2 - Setting Up the Schema
-The schema is reuired by express-graphql to do stuff concerning graphiql. The Schema uses classes from graphql to defined how data is manipulated
+The schema is reuired by express-graphql to do querying and mutations. The Schema uses classes from graphql to defined how data is manipulated
 
 1. First, some things have to be enabled.
 ```js
@@ -50,7 +50,7 @@ const {
 } = require('graphql');
 ```
 
-GraphQL has object types which define how the objects being queried or mutated are gonna be like.
+GraphQL has its own data types and objects which define how the objects being queried or mutated are gonna be like.
 You can see the various object types under the `GraphQLObjectType`. 
 
 2. Now, for your data, you need to define types for your various data objects. In this example, the customer and customers data object were used. 

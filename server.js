@@ -1,18 +1,16 @@
 const express = require('express');
 const expressGraphQL = require('express-graphql');
-const schema = require('./schema.js');
 const cors = require('cors');
+const schema = require('./schema');
 
-const app = express();
+const server = express();
 
-// enable `cors` to set HTTP response header: Access-Control-Allow-Origin: *
-app.use(cors());
+server.use(cors());
+server.use('/graphql', expressGraphQL({
+  schema,
+  graphiql:true
+}))
 
-app.use('/graphql', expressGraphQL({
-    schema:schema,
-    graphiql:true
-}));
-
-app.listen(4000, () => {
-    console.log('Server is running on port 4000..');
+server.listen('4000', () => {
+  console.log('Server listening on localhost:4000')
 });
