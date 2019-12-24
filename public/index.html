@@ -1,0 +1,104 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Graph QL Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 2px 5px;
+    }
+    input {
+      padding: 3px 5px;
+    }
+    form {
+      display: grid;
+      row-gap: 5px;
+    }
+
+    .container {
+      margin-top: 3rem;
+      display: grid;
+      justify-items: center;
+    }
+
+    main {
+      display: grid;
+      width: 600px;
+      row-gap: 3rem;
+    }
+    .data-table {
+      width: 100%;
+    }
+    .table-actions {
+      display: flex;
+      justify-content: center;
+    }
+    .table-actions button:not(:last-child){
+      margin-right: 5px !important;
+    }
+    @media(max-width: 750px) {
+      main {
+        width: calc(100vw - 50px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="container">
+    <main>
+      <form action="" class="add-form">
+        <h3>Enter new person</h3>
+        <input type="text" name="name" placeholder="e.g. Guy Fonsi">
+        <input type="number" placeholder="e.g. 34" name="age">
+        <input type="email" placeholder="e.g. guyf@gmail.com" name="email">
+        <button type="submit">Submit</button>
+      </form>
+
+      <form action="" class="query-form">
+        <h3>Query a person</h3>
+        <input type="text" name="id" placeholder="e.g. 1, 2 or fjfdki454">
+        <button type="submit">Submit</button>
+      </form>
+      <div class="data-table-cont">
+        <h3>Users</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <td>S/N</td>
+              <td>Name</td>
+              <td>Age</td>
+              <td>Email</td>
+              <td style="text-align: center;">Actions</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>John Doe</td>
+              <td>40</td>
+              <td>JohnDoe@gmail.com</td>
+              <td class="table-actions">
+                <button>edit</button>
+                <button>delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </section>
+
+  <script src="./index.js"></script>
+</body>
+
+</html>
