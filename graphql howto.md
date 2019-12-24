@@ -179,3 +179,12 @@ mutation {
 Finally, a schema is exported carrying two args.
 1. The query object
 2. The mutation object
+
+## Summary - Schema
+The schema file contains two main stuff
+1. The query object
+2. The mutation object
+
+These two objects would be args of the GraphQLSchema which would be exported and used with expressGraphQL
+
+Also, those objects depend on several flow types

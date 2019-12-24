@@ -8,7 +8,7 @@ const server = express();
 server.use(cors());
 server.use('/graphql', expressGraphQL({
   schema,
-  graphiql:true
+  graphiql: true
 }))
 
 server.listen('4000', () => {
