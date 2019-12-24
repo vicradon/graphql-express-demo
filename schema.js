@@ -8,7 +8,7 @@ const {
   GraphQLSchema
 } = require('graphql');
 
-const customerType = new GraphQLObjectType({
+const CustomerType = new GraphQLObjectType({
   name:'customer',
   fields:() => ({
     id:{type:GraphQLString},
@@ -22,12 +22,20 @@ const query = new GraphQLObjectType({
   name:'query',
   fields:{
     customer:{
-      type:customerType,
+      type:CustomerType,
       args: {
         id:{type:GraphQLString}
       },
       resolve(parentValue, args){
-        return axios.get(`http://localhost:5000${args.id}`)
+        console.log(`http://localhost:3000/customers/${args.id}`)
+        return axios.get(`http://localhost:3000/customers/${args.id}`)
+          .then(res => res.data)
+      }
+    },
+    customers:{
+      type:CustomerType,
+      resolve(parentValue, args){
+        return axios.get('http://localhost:3000/customers/')
           .then(res => res.data)
       }
     }
@@ -39,6 +47,6 @@ const mutation = new GraphQLObjectType({
 })
 
 module.exports = new GraphQLSchema({
-  query,
+  query
   // mutation:mutation
 })
