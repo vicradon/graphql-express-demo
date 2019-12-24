@@ -3,113 +3,87 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
-  GraphQLSchema,
+  GraphQLNonNull,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLSchema
 } = require('graphql');
 
-/*
-// Hardcoded data
-const customers = [
-  { id: '1', name: 'John Doe', email: 'jdoe@gmail.com', age: 35 },
-  { id: '2', name: 'Steve Smith', email: 'steve@gmail.com', age: 25 },
-  { id: '3', name: 'Sara Williams', email: 'sara@gmail.com', age: 32 },
-];
-*/
-
-// Customer Type
-const CustomerType = new GraphQLObjectType({
-  name: 'customer',
-  fields: () => ({
-    id: { type: GraphQLString },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    age: { type: GraphQLInt },
+const customerType = new GraphQLObjectType({
+  name:'customer',
+  fields:() => ({
+    id:{type:GraphQLString},
+    name:{type:GraphQLString},
+    email:{type:GraphQLString},
+    age:{type:GraphQLInt},
+    isMarried:{type:GraphQLString}
   })
-});
+})
 
-// Root Query
-const RootQuery = new GraphQLObjectType({
-  name: 'rootQuery',
-  fields: {
-    customer: {
-      type: CustomerType,
+const query = new GraphQLObjectType({
+  name:'query',
+  fields:{
+    customer:{
+      type:customerType,
       args: {
-        id: { type: GraphQLString }
+        id:{type:GraphQLString}
       },
-      resolve(parentValue, args) {
-        /*
-        for (let i = 0; i < customers.length; i++) {
-          if (customers[i].id == args.id) {
-            return customers[i];
-          }
-        }
-        */
-        
-        return axios.get('http://localhost:3000/customers/'+ args.id)
-            .then(res => res.data);
-        
+      resolve(parentValue, args){
+        console.log(`http://localhost:3000/customers/${args.id}`)
+        return axios.get(`http://localhost:3000/customers/${args.id}`)
+          .then(res => res.data)
       }
     },
-    customers: {
-      type: new GraphQLList(CustomerType),
-      resolve(parentValue, args) {
-        return axios.get('http://localhost:3000/customers')
-          .then(res => res.data);
+    customers:{
+      type:new GraphQLList(customerType),
+      resolve(){
+        return axios.get('http://localhost:3000/customers/')
+          .then(res => res.data)
       }
     }
   }
-});
+})
 
-// Mutations
 const mutation = new GraphQLObjectType({
-  name: 'Mutation',
+  name:'mutation',
   fields: {
-    addCustomer: {
-      type: CustomerType,
+    addCustomer:{
+      type:customerType,
       args: {
-        name: { type: new GraphQLNonNull(GraphQLString) },
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        age: { type: new GraphQLNonNull(GraphQLInt) }
+        name:{type:new GraphQLNonNull(GraphQLString)},
+        email:{type:new GraphQLNonNull(GraphQLString)},
+        age: {type:new GraphQLNonNull(GraphQLInt)}
       },
-      resolve(parentValue, args) {
-        return axios.post('http://localhost:3000/customers', {
-          name: args.name,
-          email: args.email,
-          age: args.age
-        })
-          .then(res => res.data);
+      resolve(parentValue, args){
+        return axios.post('http://localhost:3000/customers/', args)
+        .then(res => res.data)
       }
     },
     deleteCustomer: {
-      type: CustomerType,
-      args: {
-        id: { type: new GraphQLNonNull(GraphQLString) }
+      type:customerType,
+      args:{
+        id:{type:new GraphQLNonNull(GraphQLString)}
       },
-      resolve(parentValue, args) {
-        // return customers.filter(x => x.id !== args.id);
-        return axios.delete('http://localhost:3000/customers/' + args.id)
-          .then(res => res.data);
-
+      resolve(parentValue, args){
+        return axios.delete(`http://localhost:3000/customers/${args.id}`)
+        .then(res => res.data)
       }
     },
     editCustomer: {
-      type: CustomerType,
+      type:customerType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
-        name: { type: GraphQLString },
-        email: { type: GraphQLString },
-        age: { type: GraphQLInt }
+        id: {type:new GraphQLNonNull(GraphQLString)},
+        name: {type:new GraphQLNonNull(GraphQLString)},
+        email: {type:new GraphQLNonNull(GraphQLString)},
+        age: {type:new GraphQLNonNull(GraphQLInt)},
       },
-      resolve(parentValue, args) {
-        return axios.patch('http://localhost:3000/customers/' + args.id, args)
-          .then(res => res.data);
+      resolve(parentValue, args){
+        return axios.patch(`http://localhost:3000/customers/${args.id}`, args).then(res => res.data)
       }
-    },
+    }
   }
-});
+})
 
 module.exports = new GraphQLSchema({
-  query: RootQuery,
+  query,
   mutation
-});
+})
