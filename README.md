@@ -16,7 +16,7 @@ $ npm install
 -Run JSON-Server (Port 3000)
 
 ```bash
-$ npm run json:server
+$ json-server --watch db.json
 ```
 
 -Run Server (Port 4000)
@@ -28,3 +28,8 @@ $ npm run dev:server
 -Visit Graphiql IDE
 
 Go to http://localhost:4000/graphql
+
+- Run index file with parcel
+```bash
+$ parcel ./public/index.html
+```
