@@ -4,7 +4,7 @@
       "id": "1",
       "name": "John Doe",
       "email": "john@gmail.com",
-      "age": 36
+      "age": "36"
     },
     {
       "id": "2",
@@ -31,16 +31,10 @@
       "id": "BYyei4l"
     },
     {
-      "name": "Egg Man",
+      "name": "Egg Man 260",
       "email": "egg@man.com",
-      "age": 14,
+      "age": "14",
       "id": "GLf9JFZ"
-    },
-    {
-      "name": "Egg Man",
-      "email": "egg@man.com",
-      "age": 14,
-      "id": "qZMC_eF"
     }
   ]
 }
